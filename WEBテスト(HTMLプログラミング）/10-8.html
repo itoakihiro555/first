@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>カラーチェンジャー</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      text-align: center;
+      padding: 50px;
+    }
+    .btn {
+      padding: 10px 20px;
+      background-color: #333;
+      color: white;
+      border: none;
+      cursor: pointer;
+      border-radius: 8px;
+    }
+  </style>
+</head>
+<body>
+  <h1>背景色を変えてみよう</h1>
+  <button class="btn" onclick="changeColor()">色を選ぶ</button>
+
+  <script>
+    function changeColor() {
+      const color = prompt("背景色を入力してください（例: red, blue, #aabbcc）");
+      document.body.style.backgroundColor = color;
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,59 @@
+/* ③ 外部CSSファイル：全体の見た目（レイアウトや基本色）を定義 */
+:root {
+  --bg: #f6f7fb;
+  --text: #222;
+  --muted: #666;
+  --card: #fff;
+  --border: #e5e7eb;
+  --accent: royalblue;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  padding: 24px;
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Hiragino Kaku Gothic ProN", Meiryo, sans-serif;
+  line-height: 1.6;
+  color: var(--text);
+  background: var(--bg);
+}
+
+.container {
+  max-width: 880px;
+  margin: 0 auto 24px;
+}
+
+.title {
+  /* 外部では青系。内部CSSで purple に上書き、インラインで red に上書きされる想定 */
+  color: var(--accent);
+  margin: 0 0 8px;
+}
+
+.lead {
+  color: var(--muted);
+  margin: 0 0 24px;
+}
+
+.card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 16px 18px;
+  margin-bottom: 16px;
+}
+
+.card h2 {
+  margin-top: 0;
+}
+
+.try {
+  background: #fff8e1;
+  border-left: 4px solid #f6c453;
+  padding: 8px 12px;
+  border-radius: 6px;
+}
+
+.note {
+  color: #2b6cb0;
+}

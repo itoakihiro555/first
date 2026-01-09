@@ -1,0 +1,23 @@
+.btn-hex {
+    display: inline-block;
+    padding: 15px 30px;
+    color: white;
+    text-align: center;
+    text-decoration: none;
+    font-weight: bold;
+    background-color: #001f3f; /* ネイビーブルー */
+    border: 5px solid #c0c0c0; /* シルバーの枠線 */
+    clip-path: polygon(
+        25% 0%, 75% 0%, 
+        100% 50%, 75% 100%, 
+        25% 100%, 0% 50%
+    ); /* 六角形の形状 */
+    transition: all 0.3s;
+}
+
+.btn-hex:hover {
+    background-color: #003366; /* 少し明るいネイビー */
+    border-color: #999999;     /* ホバー時の枠線を少し暗く */
+    transform: scale(2.0);    /* ホバー時に少し拡大 */
+}
+

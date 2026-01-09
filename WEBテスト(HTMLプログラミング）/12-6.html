@@ -1,0 +1,12 @@
+<h2>自己紹介カード</h2>
+<p id="output"></p>
+<button onclick="showProfile()">表示</button>
+
+<script>
+  function showProfile() {
+    const name = "山田";
+    const age = 20;
+    const msg = `${name}さんは ${age} 歳です。`;
+    document.getElementById("output").innerText = msg;
+  }
+</script>

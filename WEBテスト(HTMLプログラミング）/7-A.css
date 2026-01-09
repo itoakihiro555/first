@@ -1,0 +1,112 @@
+/* 全体 */
+body {
+    margin: 0;
+    font-family: "Segoe UI", sans-serif;
+    background: #f5f5f5;
+}
+
+/* Grid Layout（全体構造） */
+.layout {
+    display: grid;
+    grid-template-rows: auto auto auto; /* topbar / hero / footer */
+}
+
+/* --------------------------
+   1. 上部ヘッダー
+--------------------------- */
+.topbar {
+    display: grid;
+    grid-template-columns: 1fr auto; /* 左：ロゴ / 右：メニュー */
+    align-items: center;
+    padding: 10px 30px;
+    background: white;
+    border-bottom: 1px solid #ccc;
+}
+
+.logo-area {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.logo-circle {
+    width: 32px;
+    height: 32px;
+    background: #0077c2;
+    border-radius: 50%;
+}
+
+.logo-text {
+    font-size: 18px;
+    font-weight: 600;
+}
+
+.top-menu {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.menu-item {
+    text-decoration: none;
+    color: #003366;
+    font-weight: bold;
+}
+
+.user-icon {
+    background: #ddd;
+    width: 36px;
+    height: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+}
+
+.access-icon {
+    font-size: 20px;
+    cursor: pointer;
+}
+
+/* --------------------------
+   2. 大きな横長BOX（画像の代わり）
+--------------------------- */
+.hero {
+    position: relative;
+    height: 400px;
+    background: linear-gradient(135deg, #0b4f72, #276b8c, #0b4f72);
+}
+
+/* 白いコンテンツBOX */
+.hero-overlay {
+    position: absolute;
+    top: 30%;
+    left: 5%;
+    background: rgba(255, 255, 255, 0.95);
+    padding: 40px 60px;
+    max-width: 500px;
+    border-radius: 4px;
+}
+
+.hero-overlay h1 {
+    margin: 0;
+    font-size: 36px;
+    font-weight: 700;
+}
+
+.hero-overlay p {
+    margin-top: 10px;
+    color: #444;
+    font-size: 18px;
+}
+
+/* --------------------------
+   3. フッター
+--------------------------- */
+.footer {
+    background: #555;
+    color: white;
+    text-align: center;
+    padding: 16px 0;
+    font-size: 14px;
+}

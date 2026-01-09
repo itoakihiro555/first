@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="jp">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="11-A.css">
+</head>
+<body>
+    <h2>今日の運勢は？</h2>
+    <button onclick="drawOmikuji()">おみくじを引く</button>
+    <div id="result" class="box"></div>
+    <script>
+        function drawOmikuji() {
+            const n = Math.floor(Math.random() * 5);
+            const resultBox = document.getElementById("result");
+            let result = "";
+            let className = "";
+
+            switch (n) {
+                case 0:
+                    result = "大吉";
+                    className = "red";
+                    break;
+                case 1:
+                    result = "中吉";
+                    className = "blue";
+                    break;
+                case 2:
+                    result = "小吉";
+                    className = "green";
+                    break;
+                case 3:
+                    result = "吉";
+                    className = "box1";
+                    break;
+                default:
+                    result = "凶";
+                    className = "card";
+                    break;
+            }
+
+            resultBox.innerText = result;
+            resultBox.className = "box " + className;
+        }
+
+    </script>
+</body>
+</html>

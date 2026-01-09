@@ -1,0 +1,47 @@
+
+body {
+  margin: 0;
+  font-family: sans-serif;
+}
+
+.header, .footer {
+  display: block;
+  background-color: #99ccff;
+  padding: 20px;
+  text-align: center;
+}
+
+.content {
+  display: block;
+  padding: 10px;
+}
+
+.menu, .main, .sidebar {
+  display: inline-block;
+  vertical-align: top;
+  padding: 10px;
+  box-sizing: border-box;
+}
+
+.menu {
+  width: 20%;
+  background-color: #cce5ff;
+}
+
+.main {
+  width: 55%;
+  background-color: #fff8cc;
+}
+
+.sidebar {
+  width: 20%;
+  background-color: #ffe5cc;
+}
+
+.footer {
+  background-color: #99ccff;
+  padding: 20px;
+  text-align: center;
+  margin-top: 10px;
+}
+

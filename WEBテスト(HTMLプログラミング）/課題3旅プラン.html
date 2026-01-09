@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>旅のプラン紹介</title>
+</head>
+<body>
+
+  <h1>旅のプラン紹介</h1>
+  <p>このページでは、人気の旅行プランとお申し込みフォームを紹介します。</p>
+
+  <h2>料金表</h2>
+  <table border="1">
+    <tr>
+      <th>プラン名</th>
+      <th>料金</th>
+    </tr>
+    <tr>
+      <td>北海道温泉ツアー</td>
+      <td>55,000円</td>
+    </tr>
+    <tr>
+      <td>沖縄リゾート</td>
+      <td>68,000円</td>
+    </tr>
+  </table>
+
+  <h2>プラン内容</h2>
+  <ul>
+    <li>宿泊: 提携ホテルまたは温泉旅館</li>
+    <li>朝食・夕食付き</li>
+  </ul>
+
+  <h2>お問い合わせフォーム</h2>
+  <form>
+    <label for="name">お名前:</label><br>
+    <input type="text" id="name" name="name"><br><br>
+
+    <label for="email">メールアドレス:</label><br>
+    <input type="email" id="email" name="email"><br><br>
+
+    <label for="plan">希望プラン:</label><br>
+    <select id="plan" name="plan">
+      <option value="hokkaido">北海道温泉ツアー</option>
+      <option value="okinawa">沖縄リゾート</option>
+    </select><br><br>
+
+    <label>出発希望日:</label><br>
+    <select name="year">
+      <option value="2025">2025年</option>
+      <option value="2026">2026年</option>
+    </select>
+    <select name="month">
+      <option value="1">1月</option>
+      <option value="2">2月</option>
+      <option value="3">3月</option>
+    </select>
+    <select name="day">
+      <option value="1">1日</option>
+      <option value="2">2日</option>
+      <option value="3">3日</option>
+    </select><br><br>
+
+    <input type="checkbox" id="agreement" name="agreement">
+    <label for="agreement">利用規約に同意します</label><br><br>
+
+    <button type="submit">送信</button>
+  </form>
+
+</body>
+</html>

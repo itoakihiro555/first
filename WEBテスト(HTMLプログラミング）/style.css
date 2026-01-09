@@ -1,0 +1,8 @@
+@charset "UTF-8";
+h2 {
+    border: 1px dashed #808081;
+}
+h3{
+    border-bottom: 1px dashed #808081;
+    padding-bottom: 10px;
+}

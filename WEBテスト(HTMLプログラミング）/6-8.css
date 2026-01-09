@@ -1,0 +1,36 @@
+/* style.css */
+body {
+  font-family: sans-serif;
+}
+
+.header, .footer {
+  background-color: #99ccff;
+  padding: 20px;
+  text-align: center;
+  display: block;
+}
+
+.main-area {
+  display: block;
+}
+
+.main, .sidebar {
+  display: inline-block;
+  vertical-align: top;
+  padding: 20px;
+}
+
+.main {
+  width: 50%;
+  background-color: #eeeeee;
+}
+
+.sidebar {
+  width: 50%;
+  background-color: #cccccc;
+}
+
+.footer {
+  margin-top: 20px;
+}
+

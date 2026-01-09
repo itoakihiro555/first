@@ -1,0 +1,29 @@
+.btn-base {
+    display: inline-block;
+    padding: 10px 5px;
+    text-decoration: none;
+    border-radius: 8px;
+    transition: all 0.3s;   /* アニメーション：次回以降学習する */
+}
+
+
+.green {
+    background-color: #4CAF50;
+    color: white;
+}
+
+.green:hover {
+    background-color: #173518;
+    color: white;
+}
+
+
+.outline {
+    background-color: white;
+    border: 2px solid #333;
+}
+
+.outline:hover {
+    background-color: #333;
+    color: white
+}

@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>スマート避難誘導システム</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&family=M+PLUS+Rounded+1c:wght@400;500;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+/* =========================================
+   GLOBAL STYLES (Based on Lecture Rules)
+   ========================================= */
+* {
+  box-sizing: border-box;
+}
+
+body {
+  background-color: #e2e8f0; /* Outer background */
+  margin: 0;
+  padding: 40px 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 40px;
+  font-family: 'Noto Sans JP', sans-serif; /* High readability font */
+  color: #333; /* Black/Dark Gray text */
+}
+
+/* Slide Container: 4:3 Aspect Ratio mostly, but flexible */
+.slide {
+  width: 1123px; /* A4 width approx at 96dpi or standard projector width */
+  height: 794px; /* A4 height approx */
+  background: linear-gradient(135deg, #ffffff 0%, #f8fbfd 100%); /* White/Light Blue tint background */
+  position: relative;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+  padding: 50px 60px;
+  overflow: hidden;
+  border: 1px solid #ccc;
+}
+
+/* Watermark / Copyright Footer */
+.copyright {
+  position: absolute;
+  bottom: 20px;
+  left: 60px;
+  font-size: 14px;
+  color: #666;
+}
+.page-number {
+  position: absolute;
+  bottom: 20px;
+  right: 60px;
+  font-size: 18px;
+  color: #666;
+}
+
+/* Decoration: Bubbles (Simulating the reference images) */
+.bubble {
+  position: absolute;
+  border-radius: 50%;
+  background: radial-gradient(circle at 30% 30%, rgba(255,255,255,0.9), rgba(200,220,255,0.4));
+  box-shadow: inset -2px -2px 6px rgba(0,0,0,0.05), 2px 2px 5px rgba(0,0,0,0.05);
+  z-index: 0;
+}
+.b1 { top: -20px; left: -20px; width: 150px; height: 150px; }
+.b2 { bottom: 50px; right: -30px; width: 100px; height: 100px; }
+.b3 { top: 40px; right: 100px; width: 40px; height: 40px; }
+
+/* Content Layer */
+.content {
+  position: relative;
+  z-index: 1;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Typography Rules */
+h1 {
+  font-size: 64px; /* Very Large for Title */
+  text-align: center;
+  margin-top: 150px;
+  margin-bottom: 40px;
+  color: #1a202c;
+  line-height: 1.3;
+}
+
+h2 {
+  font-size: 42px; /* 32pt+ equivalent */
+  border-bottom: 3px solid #3182ce; /* Blue underline */
+  padding-bottom: 10px;
+  margin-bottom: 30px;
+  color: #1a202c;
+}
+
+h3 {
+  font-size: 28px;
+  color: #2c5282;
+  margin-bottom: 15px;
+  margin-top: 20px;
+}
+
+p, li {
+  font-size: 24px; /* Rule: 24pt or larger */
+  line-height: 1.6;
+  margin-bottom: 15px;
+}
+
+strong {
+  color: #c53030; /* Rule: Red for emphasis */
+  font-weight: bold;
+}
+
+ul {
+  padding-left: 40px;
+}
+li::marker {
+  color: #3182ce; /* Blue bullets */
+}
+
+/* Layout Helpers */
+.flex-row {
+  display: flex;
+  justify-content: space-between;
+  gap: 40px;
+  height: 100%;
+}
+.col-half {
+  flex: 1;
+}
+.center-box {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  height: 100%;
+}
+
+/* Diagrams */
+.diagram-box {
+    border: 2px solid #cbd5e0;
+    border-radius: 10px;
+    padding: 20px;
+    background: #fff;
+    text-align: center;
+    margin: 10px 0;
+}
+.arrow-down {
+    text-align: center;
+    font-size: 30px;
+    color: #718096;
+    margin: 5px 0;
+}
+
+/* Table Style */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 22px;
+    margin-top: 20px;
+}
+th, td {
+    border: 2px solid #cbd5e0;
+    padding: 15px;
+    text-align: left;
+}
+th {
+    background-color: #ebf8ff;
+    color: #2c5282;
+}
+
+    </style>
+</head>
+<body>
+
+    <!-- SLIDE 1: 表題 -->
+    <div class="slide">
+        <div class="bubble b1"></div>
+        <div class="bubble b2"></div>
+        <div class="bubble b3"></div>
+        <div class="content">
+            <div class="center-box">
+                <p style="font-size: 32px; color: #4a5568; margin-bottom: 0;">本学で学ぶ技術で実現する身近な防災対策</p>
+                <h1>避難所の「満員」を防ぐ<br>スマート避難誘導システム</h1>
+                
+                <div style="margin-top: 100px; text-align: center; font-size: 32px;">
+                    <p>【所属】IT学科 / DE学科</p>
+                    <p>【氏名】[あなたの氏名]</p>
+                    <p>【クラス】[クラス記号]</p>
+                </div>
+            </div>
+        </div>
+        <div class="copyright">© 2025 IPUT Nagoya</div>
+        <div class="page-number">1</div>
+    </div>
+
+    <!-- SLIDE 2: 序論（背景・問題） -->
+    <div class="slide">
+        <div class="bubble b1"></div>
+        <div class="content">
+            <h2>1. 背景：避難所における「たらい回し」問題</h2>
+            
+            <h3>現状の課題（Problem）</h3>
+            <ul>
+                <li>大規模災害時、特定の避難所に人が殺到し、<strong>「満員で入れない」</strong>事態が発生している。</li>
+                <li>避難者は疲労困憊の中、次の避難所を探してさまよい、二次災害のリスクが高まる。</li>
+            </ul>
+
+            <div class="diagram-box" style="background-color: #fff5f5; border-color: #fc8181;">
+                <p style="font-size: 28px; font-weight: bold; color: #c53030;">負の連鎖（因果関係）</p>
+                <p>情報の空白（どこが空いているか分からない）</p>
+                <div class="arrow-down">↓</div>
+                <p>特定の有名施設への集中・混雑</p>
+                <div class="arrow-down">↓</div>
+                <p><strong>避難の遅れ・受け入れ拒否（たらい回し）</strong></p>
+            </div>
+        </div>
+        <div class="copyright">© 2025 IPUT Nagoya</div>
+        <div class="page-number">2</div>
+    </div>
+
+    <!-- SLIDE 3: 序論（要約） -->
+    <div class="slide">
+        <div class="bubble b2"></div>
+        <div class="content">
+            <h2>2. 提案の概要：IoTマッチング</h2>
+            
+            <p>本学で学ぶ<strong>IoT技術</strong>と<strong>Web技術</strong>を活用し、この問題を解決する。</p>
+
+            <div class="flex-row" style="align-items: center; margin-top: 30px;">
+                <div class="col-half diagram-box" style="height: 350px; display: flex; flex-direction: column; justify-content: center;">
+                    <h3><i class="fa-solid fa-wifi"></i> IoTセンサー</h3>
+                    <p>避難所に設置したセンサーが<br>「混雑状況」を自動検知</p>
+                </div>
+                <div style="font-size: 50px; color: #3182ce;">×</div>
+                <div class="col-half diagram-box" style="height: 350px; display: flex; flex-direction: column; justify-content: center;">
+                    <h3><i class="fa-solid fa-mobile-screen"></i> マッチングアプリ</h3>
+                    <p>避難者のスマホに<br><strong>「今、空いている一番近い場所」</strong><br>をナビゲート</p>
+                </div>
+            </div>
+
+            <h3 style="text-align: center; margin-top: 40px; font-size: 32px;">
+                結論：避難の「分散化」と「最適化」を実現する
+            </h3>
+        </div>
+        <div class="copyright">© 2025 IPUT Nagoya</div>
+        <div class="page-number">3</div>
+    </div>
+
+    <!-- SLIDE 4: 本論（技術的仕組み） -->
+    <div class="slide">
+        <div class="bubble b1"></div>
+        <div class="content">
+            <h2>3. 技術的な仕組み（Mechanism）</h2>
+            <p>既存のカメラや安価なセンサーを活用し、低コストで実現する。</p>
+
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 30px;">
+                <div>
+                    <h3>① データ収集（IoT）</h3>
+                    <ul>
+                        <li><strong>CO2センサー：</strong><br>室内の二酸化炭素濃度から「密集度」を推定。プライバシー侵害がない。</li>
+                        <li><strong>AIカメラ（物体検知）：</strong><br>入口の通過人数をカウントし、残席数を算出。</li>
+                    </ul>
+                </div>
+                <div style="text-align: center;">
+                     <p style="margin-top: 40px;"></p>
+                     <p style="font-size: 18px;">※Raspberry Pi等のマイコンで制御可能</p>
+                </div>
+            </div>
+
+            <hr style="border: 1px dashed #ccc; margin: 20px 0;">
+
+            <h3>② 情報配信（Web API）</h3>
+            <ul>
+                <li>クラウド上のデータベースにリアルタイム送信。</li>
+                <li>Googleマップ等の地図アプリ上に<strong>「空き」「やや混雑」「満車」</strong>のステータスを表示する。</li>
+            </ul>
+        </div>
+        <div class="copyright">© 2025 IPUT Nagoya</div>
+        <div class="page-number">4</div>
+    </div>
+
+    <!-- SLIDE 5: 本論（効果・事例） -->
+    <div class="slide">
+        <div class="bubble b3"></div>
+        <div class="content">
+            <h2>4. 導入効果と類似事例</h2>
+            
+            <h3>期待される効果（Merit）</h3>
+            <div class="diagram-box" style="text-align: left; background-color: #f0fff4; border-color: #48bb78;">
+                <ul>
+                    <li><strong>避難者のメリット：</strong>迷わず確実に避難できる。<br>「ペット可」「車椅子対応」などの条件検索も可能。</li>
+                    <li><strong>自治体のメリット：</strong>特定の避難所への偏りを防ぎ、物資配給を効率化できる。</li>
+                </ul>
+            </div>
+
+            <h3>実証事例（Evidence）</h3>
+            <p>情報の信頼性を裏付けるため、類似事例を参照する。</p>
+            <ul>
+                <li><strong>株式会社VACAN（バカン）：</strong><br>お店の空き状況検知技術を応用し、自治体と連携して避難所の混雑可視化サービスを提供中。</li>
+                <li><strong>仙台市の実証実験：</strong><br>Webサイトで避難所開設状況をリアルタイム配信し、分散避難を促進。</li>
+            </ul>
+        </div>
+        <div class="copyright">© 2025 IPUT Nagoya</div>
+        <div class="page-number">5</div>
+    </div>
+
+    <!-- SLIDE 6: 本論（課題と解決策） -->
+    <div class="slide">
+        <div class="bubble b2"></div>
+        <div class="content">
+            <h2>5. 課題と解決策（Challenges）</h2>
+            <p>システム導入にあたっての懸念点と、その技術的対策。</p>
+
+            <table>
+                <tr>
+                    <th style="width: 30%;">懸念点</th>
+                    <th>解決策（技術的アプローチ）</th>
+                </tr>
+                <tr>
+                    <td><strong>導入コスト</strong><br>（全避難所に設置は高額）</td>
+                    <td>
+                        <ul>
+                            <li>高価な専用機ではなく、<strong>汎用マイコン</strong>（Arduino/Raspberry Pi）や既設の防犯カメラを流用するプログラムでコストを削減。</li>
+                        </ul>
+                    </td>
+                </tr>
+                <tr>
+                    <td><strong>通信遮断</strong><br>（災害時にネットが切れる）</td>
+                    <td>
+                        <ul>
+                            <li><strong>LPWA（低消費電力広域通信）</strong>など、携帯回線がダウンしても繋がる災害用通信網を利用する。</li>
+                            <li>オフライン時は「最後のデータ」を表示し日時を明記。</li>
+                        </ul>
+                    </td>
+                </tr>
+                <tr>
+                    <td><strong>デマのリスク</strong></td>
+                    <td>
+                        <ul>
+                            <li>SNS等の「人」の投稿ではなく、<strong>「センサー」</strong>という機械データを正とするため、改ざんやデマを防止できる。</li>
+                        </ul>
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <div class="copyright">© 2025 IPUT Nagoya</div>
+        <div class="page-number">6</div>
+    </div>
+
+    <!-- SLIDE 7: 結論 -->
+    <div class="slide">
+        <div class="bubble b1"></div>
+        <div class="content">
+            <h2>6. 結論（Conclusion）</h2>
+            
+            <h3>本提案のまとめ</h3>
+            <ul>
+                <li>IoTセンサーによる「客観的なデータ収集」で、<strong>情報の信頼性</strong>を担保。</li>
+                <li>Web連携による「可視化」で、避難行動の<strong>ミスマッチ（たらい回し）</strong>を解消。</li>
+            </ul>
+
+            <div class="diagram-box" style="margin-top: 30px; background-color: #ebf8ff; border-color: #4299e1;">
+                <h3 style="margin-top:0;">5W1Hの明確化</h3>
+                <ul style="text-align: left; display: inline-block;">
+                    <li><strong>Who（誰が）：</strong>自治体と協力し、IT学科の学生チームが開発。</li>
+                    <li><strong>Whom（誰に）：</strong>地域の全住民（特に判断に迷う避難者）。</li>
+                    <li><strong>When（いつ）：</strong>災害発生直後の「初動」段階で。</li>
+                    <li><strong>Where（どこで）：</strong>市内の指定避難所にて。</li>
+                    <li><strong>How（どのように）：</strong>センサー検知とアプリ通知を用いて。</li>
+                    <li><strong>Why（なぜ）：</strong>「逃げ遅れ」と「二次被害」をゼロにするため。</li>
+                </ul>
+            </div>
+            
+            <p style="text-align: center; margin-top: 30px; font-weight: bold;">ご清聴ありがとうございました。</p>
+        </div>
+        <div class="copyright">© 2025 IPUT Nagoya</div>
+        <div class="page-number">7</div>
+    </div>
+
+</body>
+</html>

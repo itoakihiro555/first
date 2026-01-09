@@ -1,0 +1,474 @@
+!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>スマート避難誘導システム</title>
+    <!-- サイズを適正化し、情報量を増やしても見やすく調整 -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+/* =========================================
+   GLOBAL STYLES (フォントサイズを適正化)
+   ========================================= */
+* {
+  box-sizing: border-box;
+}
+
+body {
+  background-color: #f0f4f8; /* 外側の背景 */
+  margin: 0;
+  padding: 40px 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 40px;
+  font-family: 'Noto Sans JP', sans-serif;
+  color: #1a202c; /* ダークテキスト */
+}
+
+/* スライド容器 (16:9に近い比率で作成) */
+.slide {
+  width: 1280px; 
+  height: 720px;
+  background: #ffffff;
+  position: relative;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+  border-radius: 10px;
+  padding: 40px 60px; /* パディングを標準化 */
+  overflow: hidden; 
+  border-top: 8px solid #3182ce; /* メインカラーのライン */
+}
+
+/* スライド共通要素 */
+.copyright {
+  position: absolute;
+  bottom: 15px;
+  left: 60px;
+  font-size: 16px;
+  color: #666;
+}
+.page-number {
+  position: absolute;
+  bottom: 15px;
+  right: 60px;
+  font-size: 20px; /* ページ番号を適正化 */
+  color: #3182ce;
+  font-weight: 700;
+}
+
+/* コンテンツ層 */
+.content {
+  position: relative;
+  z-index: 1;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+/* タイポグラフィ */
+h1 {
+  font-size: 72px; /* Title Slide */
+  text-align: center;
+  margin-top: 80px;
+  margin-bottom: 40px;
+  color: #2c5282;
+  line-height: 1.2;
+  font-weight: 900;
+}
+
+h2 {
+  font-size: 38px; /* 見出しを適正化 */
+  border-bottom: 4px solid #3182ce;
+  padding-bottom: 10px;
+  margin-bottom: 25px;
+  color: #1a202c;
+  font-weight: 700;
+}
+
+h3 {
+  font-size: 30px; /* サブ見出しを適正化 */
+  color: #3182ce; 
+  margin-bottom: 10px;
+  margin-top: 20px;
+  font-weight: 700;
+}
+
+p, li {
+  font-size: 24px; /* 本文テキストを24pxに調整 */
+  line-height: 1.5; 
+  margin-bottom: 8px;
+}
+
+strong {
+  color: #c53030; 
+  font-weight: 900;
+}
+
+ul {
+  padding-left: 30px;
+}
+li::marker {
+  font-size: 1.1em;
+  color: #4299e1; 
+}
+
+/* レイアウトヘルパー */
+.flex-row {
+  display: flex;
+  justify-content: space-between;
+  gap: 40px; /* ギャップを調整 */
+  height: 75%; 
+}
+.col-half {
+  flex: 1;
+  padding: 0;
+}
+
+/* 図解・ボックススタイル */
+.diagram-box {
+    border: 2px solid #e2e8f0;
+    border-radius: 8px;
+    padding: 20px;
+    background: #f7fafc;
+    text-align: center;
+    margin: 15px 0;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+}
+.arrow-down {
+    text-align: center;
+    font-size: 30px; /* 矢印を調整 */
+    color: #4a5568;
+    margin: 5px 0;
+}
+
+/* Before/Afterの対比を強調 */
+.contrast-box {
+    padding: 25px; 
+    border-radius: 8px;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+.contrast-box ul {
+    list-style-type: none; 
+    padding-left: 0;
+    margin-top: 20px;
+}
+.contrast-box li {
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+}
+.contrast-box li i {
+    margin-right: 12px;
+    font-size: 1.1em;
+}
+
+/* 技術詳細の箇条書き */
+.tech-list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+.tech-item {
+    padding: 12px 18px;
+    border-left: 5px solid #4299e1;
+    background: #ebf8ff;
+    border-radius: 4px;
+}
+.tech-item h4 {
+    font-size: 26px; /* 項目タイトルを調整 */
+    margin: 0 0 4px 0;
+}
+.tech-item p {
+    font-size: 20px; /* 説明文を調整 */
+    margin: 0;
+}
+
+/* グラフ・図のプレースホルダー */
+.placeholder-image {
+    background-color: #e2e8f0;
+    border: 2px dashed #a0aec0;
+    border-radius: 6px;
+    padding: 20px;
+    text-align: center;
+    font-size: 22px;
+    color: #4a5568;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+    </style>
+</head>
+<body>
+
+    <!-- SLIDE 1: 表題 -->
+    <div class="slide">
+        <div class="content" style="justify-content: center;">
+            <p style="font-size: 28px; color: #4a5568; margin-bottom: 0; text-align: center;">本学で学ぶ技術で実現する身近な防災対策</p>
+            <h1>避難所の「満員」を防ぐ<br>スマート避難誘導システム</h1>
+            
+            <div style="margin-top: 70px; text-align: center; font-size: 28px; color: #4a5568;">
+                <p>【所属】IT学科 / DE学科</p>
+                <p>【氏名】[あなたの氏名]</p>
+                <p>【クラス】[クラス記号]</p>
+            </div>
+        </div>
+        <div class="copyright">© 2025 IPUT Nagoya</div>
+        <div class="page-number">1 / 9</div>
+    </div>
+
+    <!-- SLIDE 2: 序論（背景・問題） -->
+    <div class="slide">
+        <div class="content">
+            <h2>1. 序論：背景にある課題</h2>
+            
+            <h3>災害時、避難所における「たらい回し」問題</h3>
+            <p>現状の避難所運営はリアルタイムの空き状況が分からず、以下の問題が発生しています。</p>
+            <ul>
+                <li>大規模災害時、特定の避難所に人が殺到し、<strong>「満員で入れない」</strong>事態が発生。</li>
+                <li>疲労困憊の中、避難者が次の場所を探してさまよい、<strong>二次被害のリスク</strong>が高まる。</li>
+            </ul>
+
+            <div class="diagram-box" style="background-color: #fef2f2; border-color: #fc8181; margin-top: 30px;">
+                <p style="font-size: 28px; font-weight: 900; color: #c53030;">情報の空白が引き起こす「負の連鎖」</p>
+                <div style="display: flex; justify-content: space-around; align-items: center; margin-top: 15px;">
+                    <p style="font-size: 22px;">リアルタイムの空き状況不明</p>
+                    <div class="arrow-down" style="color: #c53030;"><i class="fa-solid fa-arrow-right"></i></div>
+                    <p style="font-size: 22px;">特定の有名施設への集中・混雑</p>
+                    <div class="arrow-down" style="color: #c53030;"><i class="fa-solid fa-arrow-right"></i></div>
+                    <p style="font-size: 22px;"><strong>避難の遅れ・受け入れ拒否</strong></p>
+                </div>
+            </div>
+        </div>
+        <div class="copyright">© 2025 IPUT Nagoya</div>
+        <div class="page-number">2 / 9</div>
+    </div>
+
+    <!-- SLIDE 3: 提案（要約） -->
+    <div class="slide">
+        <div class="content">
+            <h2>2. 提案：スマート避難誘導システムの概要</h2>
+            <p style="font-weight: bold; font-size: 28px;">本提案は、IoT技術とWeb技術を組み合わせて、「情報の空白」を解消します。</p>
+            
+            <div class="flex-row" style="height: 65%; margin-top: 25px; align-items: stretch;">
+                <div class="col-half diagram-box" style="height: auto; border-color: #2f855a;">
+                    <h3 style="color: #2f855a; font-size: 28px;"><i class="fa-solid fa-wifi"></i> データ収集：IoTセンサー</h3>
+                    <p>避難所に設置されたIoTセンサー（CO2濃度、AIカメラ）が**混雑状況を自動検知**し、客観的なデータをクラウドにリアルタイム送信。</p>
+                </div>
+                <div style="font-size: 50px; color: #3182ce; align-self: center;"><i class="fa-solid fa-arrows-alt-h"></i></div>
+                <div class="col-half diagram-box" style="height: auto; border-color: #3182ce;">
+                    <h3 style="color: #3182ce; font-size: 28px;"><i class="fa-solid fa-location-crosshairs"></i> 情報配信：Webマッチング</h3>
+                    <p>避難者のスマートフォンに、リアルタイムデータに基づき**「今、空いている一番近い避難所」**をナビゲートします。</p>
+                </div>
+            </div>
+            
+            <h3 style="text-align: center; margin-top: 25px; font-size: 32px; color: #2f855a;">
+                目標：避難の「分散化」と「最適化」
+            </h3>
+        </div>
+        <div class="copyright">© 2025 IPUT Nagoya</div>
+        <div class="page-number">3 / 9</div>
+    </div>
+
+    <!-- SLIDE 4: 技術詳細 - データ収集 -->
+    <div class="slide">
+        <div class="content">
+            <h2>3. 技術的仕組み I：データ収集（IoT/センサー）</h2>
+            
+            <div class="flex-row" style="height: 80%; align-items: center;">
+                <div class="col-half" style="flex: 1.5;">
+                    <p style="font-weight: bold;">汎用性の高い安価なハードウェアで構築します。</p>
+                    <div class="tech-list">
+                        <div class="tech-item">
+                            <h4 style="color: #3182ce;">CO2濃度センサーによる「密集度」推定</h4>
+                            <p>換気状態と二酸化炭素濃度から、収容人数に対する**密度の高まりを客観的に判断**。個人特定せずプライバシーに配慮。</p>
+                        </div>
+                        <div class="tech-item">
+                            <h4 style="color: #3182ce;">AIカメラによる入退場カウント</h4>
+                            <p>避難所の入口で入退場人数をカウントし、**正確な残りの収容可能人数**をリアルタイム算出（Deep Learning不要な軽量モデルを使用）。</p>
+                        </div>
+                        <div class="tech-item">
+                            <h4 style="color: #3182ce;">ハードウェア基盤</h4>
+                            <p>Raspberry PiやArduinoなどの**汎用マイコン**を採用し、導入コストを大幅に抑制。</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-half" style="flex: 1;">
+                    <div class="placeholder-image">
+                         <p>【CO2センサーとAIカメラによるデータ収集イメージ図】</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="copyright">© 2025 IPUT Nagoya</div>
+        <div class="page-number">4 / 9</div>
+    </div>
+
+    <!-- SLIDE 5: 技術詳細 - 情報配信 -->
+    <div class="slide">
+        <div class="content">
+            <h2>4. 技術的仕組み II：情報配信（Web/アプリ）</h2>
+            
+            <div class="flex-row" style="height: 80%; align-items: center;">
+                <div class="col-half" style="flex: 1;">
+                    <div class="placeholder-image">
+                         <p>【リアルタイム避難所マップのアプリ画面イメージ】</p>
+                    </div>
+                </div>
+                <div class="col-half" style="flex: 1.5;">
+                    <p style="font-weight: bold;">避難者に必要な情報を過不足なく提供します。</p>
+                    <div class="tech-list">
+                        <div class="tech-item" style="border-left-color: #2f855a; background: #f0fff4;">
+                            <h4 style="color: #2f855a;">Web APIによるリアルタイム連携</h4>
+                            <p>収集されたIoTデータは、Google Cloud Firestoreなどの**クラウドDB**に格納され、Web APIを通じてアプリに即時配信されます。</p>
+                        </div>
+                        <div class="tech-item" style="border-left-color: #2f855a; background: #f0fff4;">
+                            <h4 style="color: #2f855a;">Web GIS（地図情報）活用</h4>
+                            <p>避難者の現在地、目的地までの経路、避難所の属性（ペット可、バリアフリーなど）を地図上に統合しナビゲーション。</p>
+                        </div>
+                        <div class="tech-item" style="border-left-color: #2f855a; background: #f0fff4;">
+                            <h4 style="color: #2f855a;">情報信頼性（デマ対策）</h4>
+                            <p>避難所の空き状況は**センサーの機械的なデータ**に基づいており、人為的な操作やデマによる混乱を防止します。</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="copyright">© 2025 IPUT Nagoya</div>
+        <div class="page-number">5 / 9</div>
+    </div>
+
+    <!-- SLIDE 6: 導入効果 -->
+    <div class="slide">
+        <div class="content">
+            <h2>5. 導入効果：誰に、どのようなメリットがあるか</h2>
+            
+            <div style="margin-top: 30px;">
+                <h3 style="color: #2f855a;"><i class="fa-solid fa-person-shelter"></i> 避難者へのメリット</h3>
+                <ul>
+                    <li><strong>迷子の防止：</strong> 疲労や不安の中で、**確実に入れる避難所**へ最短でナビゲート。</li>
+                    <li><strong>属性マッチング：</strong> 特定のニーズ（医療、ペット）に対応した避難所をすぐに見つけられる。</li>
+                </ul>
+            </div>
+            
+            <div style="margin-top: 30px;">
+                <h3 style="color: #4299e1;"><i class="fa-solid fa-city"></i> 自治体・運営者へのメリット</h3>
+                <ul>
+                    <li><strong>物資配給の最適化：</strong> 各避難所のリアルタイム人数に基づき、水や食料の**在庫を正確に調整**できる。</li>
+                    <li><strong>人員配置の効率化：</strong> 混雑状況が分かるため、職員の緊急配置も的確に行える。</li>
+                </ul>
+            </div>
+        </div>
+        <div class="copyright">© 2025 IPUT Nagoya</div>
+        <div class="page-number">6 / 9</div>
+    </div>
+
+    <!-- SLIDE 7: 懸念される課題と対策（別スライド化） -->
+    <div class="slide">
+        <div class="content">
+            <h2>6. 懸念される課題と対策（リスクマネジメント）</h2>
+            <p>システム導入における主な懸念点と、その具体的な解決アプローチです。</p>
+
+            <div class="tech-list" style="margin-top: 25px; gap: 20px;">
+                <div class="tech-item" style="border-left: 6px solid #c53030; background: #fff5f5; padding: 15px 25px;">
+                    <h4 style="font-size: 26px; color: #c53030; margin-bottom: 5px;">課題① 通信遮断リスク（ネットダウン）</h4>
+                    <p style="font-size: 20px; color: #1a202c;">
+                        **対策：** 携帯回線に依存せず、災害に強い**LPWA（低消費電力広域通信）**や衛星通信など、冗長化された通信インフラをIoTセンサー側に採用する。
+                    </p>
+                </div>
+                <div class="tech-item" style="border-left: 6px solid #c53030; background: #fff5f5; padding: 15px 25px;">
+                    <h4 style="font-size: 26px; color: #c53030; margin-bottom: 5px;">課題② 導入・維持コスト</h4>
+                    <p style="font-size: 20px; color: #1a202c;">
+                        **対策：** 汎用マイコンとオープンソース技術を活用し、**ハードウェアコストを最小化**。クラウドインフラは、自治体向け無料枠などを活用したSaaSモデルを提案。
+                    </p>
+                </div>
+                <div class="tech-item" style="border-left: 6px solid #c53030; background: #fff5f5; padding: 15px 25px;">
+                    <h4 style="font-size: 26px; color: #c53030; margin-bottom: 5px;">課題③ 避難者によるアプリ利用の有無</h4>
+                    <p style="font-size: 20px; color: #1a202c;">
+                        **対策：** アプリだけでなく、避難所入口に設置した**デジタルサイネージ**や、地域の防災無線・Webサイトとも情報を連携し、多様な情報提供チャネルを確保する。
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div class="copyright">© 2025 IPUT Nagoya</div>
+        <div class="page-number">7 / 9</div>
+    </div>
+
+    <!-- SLIDE 8: 全体まとめ（Before/Afterの対比）- 結論強化ポイント -->
+    <div class="slide">
+        <div class="content">
+            <h2>8. まとめ：このシステムが実現する未来</h2>
+            
+            <div class="flex-row" style="height: 70%; margin-top: 20px;">
+                <div class="col-half contrast-box" style="background-color: #fef2f2; border: 3px solid #fc8181;">
+                    <h3 style="color: #c53030; text-align: center; margin-top: 0; font-size: 28px;">Before: 現状の避難（運任せ）</h3>
+                    <p style="text-align: center; font-size: 26px; font-weight: 900;">「情報の空白」と「ミスマッチ」</p>
+                    <ul>
+                        <li><i class="fa-solid fa-xmark" style="color: #c53030;"></i> 古い情報：どこが空いているか不明</li>
+                        <li><i class="fa-solid fa-xmark" style="color: #c53030;"></i> 集中と拒否：<strong>たらい回し</strong>による遅延</li>
+                        <li><i class="fa-solid fa-xmark" style="color: #c53030;"></i> 二次被害：疲労と不安による判断ミス</li>
+                    </ul>
+                </div>
+                
+                <div style="font-size: 50px; color: #48bb78; align-self: center; font-weight: 900;">
+                    →
+                </div>
+                
+                <div class="col-half contrast-box" style="background-color: #f0fff4; border: 3px solid #48bb78;">
+                    <h3 style="color: #2f855a; text-align: center; margin-top: 0; font-size: 28px;">After: 導入後の避難（確実性）</h3>
+                    <p style="text-align: center; font-size: 26px; font-weight: 900;">「データの活用」と「最適化」</p>
+                    <ul>
+                        <li><i class="fa-solid fa-check" style="color: #2f855a;"></i> リアルタイム：空き状況が**可視化**</li>
+                        <li><i class="fa-solid fa-check" style="color: #2f855a;"></i> 分散誘導：**最適な避難所**へスムーズに</li>
+                        <li><i class="fa-solid fa-check" style="color: #2f855a;"></i> 命の確保：確実に安全を確保</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="copyright">© 2025 IPUT Nagoya</div>
+        <div class="page-number">8 / 9</div>
+    </div>
+
+
+    <!-- SLIDE 9: 結論（結び）- 結論強化ポイント -->
+    <div class="slide">
+        <div class="content">
+            <h2>9. 結論：本学の技術で「逃げ遅れゼロ」へ</h2>
+            
+            <h3 style="margin-top: 30px; font-size: 30px; color: #2c5282;">再確認：システムの核となる価値</h3>
+            <div style="display: flex; justify-content: space-around; margin-top: 30px; text-align: center;">
+                <div style="background: #e6fffa; padding: 20px; border-radius: 8px; width: 30%;">
+                    <i class="fa-solid fa-shield-halved" style="font-size: 35px; color: #2f855a;"></i>
+                    <p style="margin-top: 10px; font-size: 22px; font-weight: bold;">避難者の安全</p>
+                </div>
+                <div style="background: #e9d8fd; padding: 20px; border-radius: 8px; width: 30%;">
+                    <i class="fa-solid fa-chart-line" style="font-size: 35px; color: #6b46c1;"></i>
+                    <p style="margin-top: 10px; font-size: 22px; font-weight: bold;">運営の効率化</p>
+                </div>
+                <div style="background: #fff8e1; padding: 20px; border-radius: 8px; width: 30%;">
+                    <i class="fa-solid fa-handshake" style="font-size: 35px; color: #dd6b20;"></i>
+                    <p style="margin-top: 10px; font-size: 22px; font-weight: bold;">地域連携の強化</p>
+                </div>
+            </div>
+
+            <div style="margin-top: 60px; text-align: center; color: #1a202c;">
+                <h3 style="font-size: 30px; color: #2c5282;">結びのメッセージ</h3>
+                <p style="font-size: 28px; font-weight: bold; line-height: 1.6;">
+                    我々が大学で学ぶ**IoTとWeb技術**こそが、<br>
+                    <strong>災害時における「命綱」</strong>となり得ることを証明します。
+                </p>
+            </div>
+        </div>
+        <div class="copyright">© 2025 IPUT Nagoya</div>
+        <div class="page-number">9 / 9</div>
+    </div>
+
+</body>
+</html>
